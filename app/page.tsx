@@ -1,42 +1,50 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import { Phone, MessageCircle, MapPin, TrendingUp, Clock, CheckCircle, Menu, X, Instagram, Linkedin, Facebook, ChevronRight, Globe, ArrowRight, ArrowUp, Share2, Send } from 'lucide-react';
+import { 
+  Phone, MessageCircle, MapPin, TrendingUp, Clock, CheckCircle, 
+  Menu, X, Instagram, Linkedin, Facebook, ChevronRight, 
+  ArrowRight, ArrowUp, Share2 
+} from 'lucide-react';
 
 const Site724Landing = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [showScrollTop, setShowScrollTop] = useState(false);
-  
-  // WhatsApp Widget State'i
   const [isChatOpen, setIsChatOpen] = useState(false);
 
-  // Scroll takibi
+  // Scroll takibi (Header ve Yukarı Çık butonu için)
   useEffect(() => {
     const handleScroll = () => {
+      // Header arka planı için
       setScrolled(window.scrollY > 20);
+      
+      // 300px aşağı inince yukarı çık butonunu göster
       setShowScrollTop(window.scrollY > 300);
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  // Soft Scroll to Top (Yağ gibi kayması için window.scrollTo behavior kullandık)
+  // Sayfanın tepesine yumuşak kaydır
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const whatsappLink = "https://wa.me/905550000000"; // Burayı kendi numaranla değiştirmeyi unutma
+  // WhatsApp ve Telefon Linkleri
+  // NOT: Buraya kendi numaranı yazmayı unutma (905...)
+  const whatsappLink = "https://wa.me/905550000000";
   const phoneLink = "tel:05550000000";
 
   return (
-    // 'scroll-smooth' class'ı eklendi: Sayfa içi linklerde yumuşak geçiş sağlar
     <div className="min-h-screen bg-slate-50 font-sans text-slate-900 selection:bg-orange-100 selection:text-orange-600 relative scroll-smooth">
-      
-      {/* --- CUSTOM WHATSAPP WIDGET (ELFSIGHT STYLE) --- */}
-      <div className="fixed bottom-6 left-6 z-50 flex flex-col items-start gap-4">
+
+      {/* --- FLOATING BUTTONS (SABİT BUTONLAR) --- */}
+
+      {/* 1. WhatsApp Widget (ElfSight Style - Sol Alt) */}
+      <div className="fixed bottom-6 left-6 z-50 flex flex-col items-start gap-4 font-sans">
         
-        {/* Chat Penceresi (Açılır Kapanır) */}
+        {/* Chat Penceresi */}
         {isChatOpen && (
             <div className="bg-white rounded-2xl shadow-2xl w-80 overflow-hidden border border-slate-100 animate-in fade-in slide-in-from-bottom-4 duration-300 origin-bottom-left">
                 {/* Header */}
@@ -49,11 +57,10 @@ const Site724Landing = () => {
                     </button>
                     <div className="flex items-center gap-4">
                         <div className="relative">
-                            {/* PROFİL FOTOĞRAFI BURAYA GELECEK */}
-                            {/* Kendi fotoğrafının URL'sini src kısmına yapıştır. Şimdilik placeholder var. */}
+                            {/* PROFİL FOTOĞRAFI */}
                             <img 
                                 src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?w=400&auto=format&fit=crop&q=60" 
-                                alt="Abdulsamed Tanrıverdi" 
+                                alt="Profil" 
                                 className="w-14 h-14 rounded-full border-2 border-white object-cover"
                             />
                             <div className="absolute bottom-0 right-0 w-3 h-3 bg-green-500 rounded-full border-2 border-[#0f172a]"></div>
@@ -65,24 +72,21 @@ const Site724Landing = () => {
                     </div>
                 </div>
 
-                {/* Body (Chat Alanı) */}
-                <div className="bg-[#e5ddd5] p-6 h-64 flex flex-col gap-4 overflow-y-auto bg-opacity-30 relative">
-                    {/* Arka plan deseni (Opsiyonel) */}
-                    <div className="absolute inset-0 opacity-5 bg-[url('https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png')]"></div>
-                    
-                    {/* Mesaj Balonu */}
+                {/* Chat Body */}
+                <div className="bg-[#e5ddd5] p-6 h-64 flex flex-col gap-4 overflow-y-auto relative">
+                    <div className="absolute inset-0 opacity-10 bg-[url('https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png')]"></div>
                     <div className="bg-white p-3 rounded-r-xl rounded-bl-xl shadow-sm text-sm text-slate-800 relative z-10 self-start max-w-[90%]">
                         <p className="font-bold text-xs text-orange-600 mb-1">Abdulsamed Tanrıverdi</p>
                         <p>Merhaba 👋</p>
                         <p className="mt-2">Yardım etmek için buradayım, soru ve görüşleriniz için yazabilirsiniz. 😊</p>
-                        <span className="text-[10px] text-slate-400 float-right mt-1 ml-2">13:14</span>
+                        <span className="text-[10px] text-slate-400 float-right mt-1 ml-2">Şimdi</span>
                     </div>
                 </div>
 
-                {/* Footer (Buton) */}
+                {/* Footer Button */}
                 <div className="p-4 bg-white border-t border-slate-100">
                     <a 
-                        href={whatsappLink} 
+                        href={whatsappLink}
                         target="_blank" 
                         rel="noopener noreferrer"
                         className="flex items-center justify-center gap-2 w-full bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold py-3 rounded-full transition shadow-lg hover:shadow-green-500/30"
@@ -94,15 +98,13 @@ const Site724Landing = () => {
             </div>
         )}
 
-        {/* Tetikleyici Buton (Trigger) */}
+        {/* Tetikleyici Buton (Sol Alt) */}
         <button 
             onClick={() => setIsChatOpen(!isChatOpen)}
             className="group flex items-center gap-3 bg-[#0f172a] text-white px-5 py-3 rounded-full shadow-2xl hover:scale-105 transition duration-300 relative"
         >
             <MessageCircle size={24} className="text-white" />
             <span className="font-bold pr-1">İletişime Geçin</span>
-            
-            {/* Kırmızı Bildirim Noktası */}
             <span className="absolute -top-1 -right-1 flex h-4 w-4">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-4 w-4 bg-red-500 border-2 border-white"></span>
@@ -110,7 +112,7 @@ const Site724Landing = () => {
         </button>
       </div>
 
-      {/* --- SCROLL TO TOP BUTTON (Smooth) --- */}
+      {/* 2. Yukarı Çık Butonu (Sağ Alt - Scroll Olunca Görünür) */}
       <button 
         onClick={scrollToTop}
         className={`fixed bottom-6 right-6 z-40 bg-white text-slate-900 border border-slate-200 p-3 rounded-full shadow-lg hover:bg-orange-500 hover:text-white hover:border-orange-500 transition-all duration-500 transform ${showScrollTop ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'}`}
@@ -119,8 +121,7 @@ const Site724Landing = () => {
         <ArrowUp size={24} />
       </button>
 
-
-      {/* --- NAVBAR --- */}
+      {/* --- NAVBAR (Glassmorphism Effect) --- */}
       <nav className={`fixed w-full z-40 transition-all duration-300 ${scrolled ? 'bg-white/95 backdrop-blur-md shadow-md py-2' : 'bg-transparent py-4'}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16 items-center">
@@ -129,7 +130,7 @@ const Site724Landing = () => {
               <div className="w-8 h-8 bg-orange-500 rounded-lg flex items-center justify-center text-white font-bold">S</div>
               <span className="text-2xl font-bold text-slate-900 tracking-tight">Site<span className="text-orange-500">724</span></span>
             </div>
-            
+
             {/* Desktop Menu */}
             <div className="hidden md:flex space-x-8 items-center font-medium">
               <a href="#hero" className="text-slate-600 hover:text-orange-500 transition cursor-pointer">Ana Sayfa</a>
@@ -149,7 +150,7 @@ const Site724Landing = () => {
             </div>
           </div>
         </div>
-        
+
         {/* Mobile Menu Dropdown */}
         {isMenuOpen && (
           <div className="md:hidden bg-white border-t p-4 space-y-4 absolute w-full shadow-xl">
@@ -165,10 +166,13 @@ const Site724Landing = () => {
 
       {/* --- HERO SECTION --- */}
       <section id="hero" className="relative pt-32 pb-20 lg:pt-40 lg:pb-28 overflow-hidden">
+        {/* Background Blobs */}
         <div className="absolute top-0 right-0 -z-10 w-[600px] h-[600px] bg-orange-100/50 rounded-full blur-3xl opacity-50 translate-x-1/3 -translate-y-1/4"></div>
         <div className="absolute bottom-0 left-0 -z-10 w-[400px] h-[400px] bg-blue-100/50 rounded-full blur-3xl opacity-50 -translate-x-1/3 translate-y-1/4"></div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col-reverse lg:flex-row items-center">
+          
+          {/* Text Content */}
           <div className="w-full lg:w-1/2 mt-12 lg:mt-0 lg:pr-12 text-center lg:text-left">
             <div className="inline-flex items-center gap-2 bg-white border border-slate-200 text-slate-700 px-4 py-1.5 rounded-full text-sm font-semibold mb-8 shadow-sm">
               <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
@@ -191,6 +195,8 @@ const Site724Landing = () => {
               </a>
             </div>
           </div>
+
+          {/* Image Content */}
           <div className="w-full lg:w-1/2">
             <div className="relative rounded-2xl overflow-hidden shadow-2xl bg-white border border-slate-100 aspect-[4/3] group">
                <img 
@@ -310,6 +316,11 @@ const Site724Landing = () => {
               <p className="text-lg text-slate-600 mb-8 leading-relaxed">
                 Instagram ve Facebook hesabınızı profesyonel ellere bırakın. Düzenli paylaşımlar, Reels videoları ve reklam yönetimiyle takipçi değil, müşteri kazanın.
               </p>
+              <ul className="space-y-3 mb-8">
+                  <li className="flex items-center gap-3 text-slate-700"><CheckCircle size={18} className="text-green-500" /> İçerik Üretimi & Tasarım</li>
+                  <li className="flex items-center gap-3 text-slate-700"><CheckCircle size={18} className="text-green-500" /> Reels & Video Çekimi</li>
+                  <li className="flex items-center gap-3 text-slate-700"><CheckCircle size={18} className="text-green-500" /> Sponsorlu Reklam Yönetimi</li>
+              </ul>
               <button onClick={() => setIsChatOpen(true)} className="text-orange-600 font-bold hover:text-orange-700 flex items-center gap-2 group">
                 Sosyal Medya Paketi Alın <ChevronRight size={20} className="group-hover:translate-x-1 transition" />
               </button>
@@ -386,8 +397,16 @@ const Site724Landing = () => {
                         <div className="w-8 h-8 bg-orange-500 rounded-lg flex items-center justify-center text-white font-bold">S</div>
                         <span className="text-2xl font-bold text-slate-900">Site<span className="text-orange-500">724</span></span>
                     </div>
-                    <p className="text-slate-500 mb-6">Kars'ın yerel işletmeleri için dijital büyüme ortağı.</p>
+                    <p className="text-slate-500 mb-6">Kars'ın yerel işletmeleri için dijital büyüme ortağı. Web tasarım, SEO ve sosyal medya çözümleri.</p>
+                    {/* Sosyal Medya İkonları */}
+                    <div className="flex gap-4">
+                        <a href="#" className="w-10 h-10 bg-white border border-slate-200 rounded-full flex items-center justify-center text-slate-600 hover:bg-orange-500 hover:text-white transition"><Instagram size={20} /></a>
+                        <a href="#" className="w-10 h-10 bg-white border border-slate-200 rounded-full flex items-center justify-center text-slate-600 hover:bg-blue-600 hover:text-white transition"><Linkedin size={20} /></a>
+                        <a href="#" className="w-10 h-10 bg-white border border-slate-200 rounded-full flex items-center justify-center text-slate-600 hover:bg-blue-800 hover:text-white transition"><Facebook size={20} /></a>
+                    </div>
                 </div>
+                
+                {/* Kolon 2 */}
                 <div>
                     <h4 className="font-bold text-slate-900 mb-4">Hızlı Erişim</h4>
                     <ul className="space-y-3">
@@ -396,6 +415,8 @@ const Site724Landing = () => {
                         <li><a href="#avantajlar" className="text-slate-600 hover:text-orange-500 transition">Neden Biz?</a></li>
                     </ul>
                 </div>
+
+                {/* Kolon 3 */}
                 <div>
                     <h4 className="font-bold text-slate-900 mb-4">Hizmetler</h4>
                     <ul className="space-y-3">
@@ -405,6 +426,8 @@ const Site724Landing = () => {
                         <li><a href="#hizmet-sosyal" className="text-slate-600 hover:text-orange-500 transition">Sosyal Medya Yönetimi</a></li>
                     </ul>
                 </div>
+
+                {/* Kolon 4 */}
                 <div>
                     <h4 className="font-bold text-slate-900 mb-4">İletişim</h4>
                     <ul className="space-y-4">
@@ -416,11 +439,20 @@ const Site724Landing = () => {
                             <Phone size={20} className="text-orange-500 shrink-0" />
                             <span>+90 555 000 00 00</span>
                         </li>
+                        <li className="flex items-center gap-3 text-slate-600">
+                            <MessageCircle size={20} className="text-orange-500 shrink-0" />
+                            <span>info@site724.com.tr</span>
+                        </li>
                     </ul>
                 </div>
             </div>
+            
             <div className="border-t border-slate-200 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-slate-500">
                 <p>&copy; 2026 Site724. Tüm Hakları Saklıdır.</p>
+                <div className="flex gap-6">
+                    <a href="#" className="hover:text-slate-900">Gizlilik Politikası</a>
+                    <a href="#" className="hover:text-slate-900">Kullanım Şartları</a>
+                </div>
             </div>
         </div>
       </footer>
