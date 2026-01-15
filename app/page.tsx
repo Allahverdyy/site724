@@ -37,22 +37,28 @@ const Site724Landing = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Adres çubuğunu kirletmeden (#id eklemeden) yumuşak kaydırma fonksiyonu
+  const scrollToSection = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
+    e.preventDefault(); // URL'e # eklenmesini engeller
+    const element = document.getElementById(id);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+      setIsMenuOpen(false); // Mobildeysek menüyü kapat
+    }
+  };
+
   const scrollToTop = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const whatsappLink = "https://wa.me/905550000000"; // NUMARANI GÜNCELLE
+  const whatsappLink = "https://wa.me/905550000000";
   const phoneLink = "tel:05550000000";
 
   return (
     <div className="min-h-screen bg-slate-50 font-sans text-slate-900 selection:bg-orange-100 selection:text-orange-600 relative scroll-smooth">
 
       {/* --- FLOATING BUTTONS --- */}
-
-      {/* 1. WhatsApp Widget */}
       <div className="fixed bottom-6 left-6 z-50 flex flex-col items-start gap-4 font-sans">
-        
-        {/* Chat Penceresi */}
         {isChatOpen && (
             <div className="bg-white rounded-2xl shadow-2xl w-80 overflow-hidden border border-slate-100 animate-in fade-in slide-in-from-bottom-4 duration-300 origin-bottom-left">
                 <div className="bg-[#0f172a] p-6 text-white relative">
@@ -77,7 +83,6 @@ const Site724Landing = () => {
                         </div>
                     </div>
                 </div>
-
                 <div className="bg-[#e5ddd5] p-6 h-64 flex flex-col gap-4 overflow-y-auto relative">
                     <div className="absolute inset-0 opacity-10 bg-[url('https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png')]"></div>
                     <div className="bg-white p-3 rounded-r-xl rounded-bl-xl shadow-sm text-sm text-slate-800 relative z-10 self-start max-w-[90%]">
@@ -87,7 +92,6 @@ const Site724Landing = () => {
                         <span className="text-[10px] text-slate-400 float-right mt-1 ml-2">Şimdi</span>
                     </div>
                 </div>
-
                 <div className="p-4 bg-white border-t border-slate-100">
                     <a 
                         href={whatsappLink}
@@ -101,8 +105,6 @@ const Site724Landing = () => {
                 </div>
             </div>
         )}
-
-        {/* Tetikleyici Buton (Cursor-Pointer Eklendi) */}
         <button 
             onClick={() => setIsChatOpen(!isChatOpen)}
             className="group flex items-center gap-3 bg-[#0f172a] text-white px-5 py-3 rounded-full shadow-2xl hover:scale-105 transition duration-300 relative cursor-pointer"
@@ -116,7 +118,6 @@ const Site724Landing = () => {
         </button>
       </div>
 
-      {/* 2. Yukarı Çık Butonu (Cursor-Pointer Eklendi) */}
       <button 
         onClick={scrollToTop}
         className={`fixed bottom-6 right-6 z-40 bg-white text-slate-900 border border-slate-200 p-3 rounded-full shadow-lg hover:bg-orange-500 hover:text-white hover:border-orange-500 transition-all duration-500 transform cursor-pointer ${showScrollTop ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'}`}
@@ -135,18 +136,17 @@ const Site724Landing = () => {
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16 items-center">
-            {/* Logo (Cursor-Pointer) */}
-            <div className="flex items-center gap-2 cursor-pointer" onClick={scrollToTop}>
+            {/* Logo: href="/" sayesinde sayfayı temizler ve ana sayfaya atar */}
+            <a href="/" className="flex items-center gap-2 cursor-pointer no-underline">
               <div className="w-8 h-8 bg-orange-500 rounded-lg flex items-center justify-center text-white font-bold">S</div>
               <span className="text-2xl font-bold text-slate-900 tracking-tight">Site<span className="text-orange-500">724</span></span>
-            </div>
+            </a>
 
             {/* Desktop Menu */}
             <div className="hidden md:flex space-x-8 items-center font-medium">
-              <a href="#hero" className="text-slate-600 hover:text-orange-500 transition cursor-pointer">Ana Sayfa</a>
-              <a href="#hizmetler" className="text-slate-600 hover:text-orange-500 transition cursor-pointer">Hizmetler</a>
-              <a href="#avantajlar" className="text-slate-600 hover:text-orange-500 transition cursor-pointer">Neden Biz?</a>
-              {/* Teklif Al Butonu (Cursor-Pointer) */}
+              <a href="#hero" onClick={(e) => scrollToSection(e, 'hero')} className="text-slate-600 hover:text-orange-500 transition cursor-pointer">Ana Sayfa</a>
+              <a href="#hizmetler" onClick={(e) => scrollToSection(e, 'hizmetler')} className="text-slate-600 hover:text-orange-500 transition cursor-pointer">Hizmetler</a>
+              <a href="#avantajlar" onClick={(e) => scrollToSection(e, 'avantajlar')} className="text-slate-600 hover:text-orange-500 transition cursor-pointer">Neden Biz?</a>
               <button onClick={() => setIsChatOpen(true)} className="bg-slate-900 hover:bg-orange-600 text-white px-6 py-2.5 rounded-full font-medium transition shadow-lg hover:shadow-orange-500/20 flex items-center gap-2 cursor-pointer">
                 <MessageCircle size={18} />
                 Teklif Al
@@ -165,9 +165,9 @@ const Site724Landing = () => {
         {/* Mobile Menu Dropdown */}
         {isMenuOpen && (
           <div className="md:hidden bg-white border-t p-4 space-y-4 absolute w-full shadow-xl">
-            <a href="#hero" className="block text-slate-600 p-2 hover:bg-slate-50 rounded" onClick={() => setIsMenuOpen(false)}>Ana Sayfa</a>
-            <a href="#hizmetler" className="block text-slate-600 p-2 hover:bg-slate-50 rounded" onClick={() => setIsMenuOpen(false)}>Hizmetler</a>
-            <a href="#avantajlar" className="block text-slate-600 p-2 hover:bg-slate-50 rounded" onClick={() => setIsMenuOpen(false)}>Neden Biz?</a>
+            <a href="#hero" onClick={(e) => scrollToSection(e, 'hero')} className="block text-slate-600 p-2 hover:bg-slate-50 rounded">Ana Sayfa</a>
+            <a href="#hizmetler" onClick={(e) => scrollToSection(e, 'hizmetler')} className="block text-slate-600 p-2 hover:bg-slate-50 rounded">Hizmetler</a>
+            <a href="#avantajlar" onClick={(e) => scrollToSection(e, 'avantajlar')} className="block text-slate-600 p-2 hover:bg-slate-50 rounded">Neden Biz?</a>
             <button onClick={() => { setIsChatOpen(true); setIsMenuOpen(false); }} className="block w-full text-center bg-orange-500 text-white py-3 rounded-lg font-bold cursor-pointer">
               WhatsApp'tan Yaz
             </button>
@@ -198,7 +198,7 @@ const Site724Landing = () => {
                 Hemen Başlayalım
                 <ArrowRight size={20} />
               </button>
-              <a href="#hizmetler" className="flex items-center justify-center gap-2 bg-white border border-slate-200 hover:border-orange-500 hover:text-orange-500 text-slate-600 px-8 py-4 rounded-full text-lg font-medium transition shadow-sm hover:shadow-md cursor-pointer">
+              <a href="#hizmetler" onClick={(e) => scrollToSection(e, 'hizmetler')} className="flex items-center justify-center gap-2 bg-white border border-slate-200 hover:border-orange-500 hover:text-orange-500 text-slate-600 px-8 py-4 rounded-full text-lg font-medium transition shadow-sm hover:shadow-md cursor-pointer">
                 Hizmetleri Gör
               </a>
             </div>
@@ -253,7 +253,7 @@ const Site724Landing = () => {
         </div>
       </section>
 
-      {/* --- HİZMETLER (GÜNCELLENDİ) --- */}
+      {/* --- HİZMETLER --- */}
       <section id="hizmetler" className="bg-white py-24 scroll-mt-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-24">
           
@@ -314,7 +314,7 @@ const Site724Landing = () => {
             </div>
           </div>
 
-          {/* Hizmet 4: Sosyal Medya */}
+          {/* Hizmet 4: Sosyal Medya (GÖRSEL GÜNCELLENDİ) */}
           <div id="hizmet-sosyal" className="flex flex-col-reverse lg:flex-row items-center gap-16 scroll-mt-24">
             <div className="w-full lg:w-1/2">
               <span className="inline-block px-3 py-1 bg-pink-100 text-pink-700 rounded-full text-xs font-bold tracking-wide uppercase mb-4">Sosyal Medya Yönetimi</span>
@@ -333,7 +333,8 @@ const Site724Landing = () => {
             </div>
             <div className="w-full lg:w-1/2">
                 <div className="rounded-2xl shadow-2xl overflow-hidden border border-slate-100 bg-slate-50 p-2">
-                   <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?auto=format&fit=crop&w=800&q=80" className="rounded-xl w-full" alt="Sosyal Medya Yönetimi" />
+                   {/* GÜNCELLENEN SOSYAL MEDYA GÖRSELİ */}
+                   <img src="https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?auto=format&fit=crop&w=800&q=80" className="rounded-xl w-full" alt="Sosyal Medya Yönetimi" />
                </div>
             </div>
           </div>
@@ -398,10 +399,10 @@ const Site724Landing = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid md:grid-cols-4 gap-12 mb-12">
                 <div>
-                    <div className="flex items-center gap-2 mb-4 cursor-pointer" onClick={scrollToTop}>
+                    <a href="/" className="flex items-center gap-2 mb-4 cursor-pointer no-underline">
                         <div className="w-8 h-8 bg-orange-500 rounded-lg flex items-center justify-center text-white font-bold">S</div>
                         <span className="text-2xl font-bold text-slate-900">Site<span className="text-orange-500">724</span></span>
-                    </div>
+                    </a>
                     <p className="text-slate-500 mb-6">Kars'ın yerel işletmeleri için dijital büyüme ortağı. Web tasarım, SEO ve sosyal medya çözümleri.</p>
                     <div className="flex gap-4">
                         <a href="#" className="w-10 h-10 bg-white border border-slate-200 rounded-full flex items-center justify-center text-slate-600 hover:bg-orange-500 hover:text-white transition"><Instagram size={20} /></a>
@@ -412,18 +413,18 @@ const Site724Landing = () => {
                 <div>
                     <h4 className="font-bold text-slate-900 mb-4">Hızlı Erişim</h4>
                     <ul className="space-y-3">
-                        <li><a href="#hero" className="text-slate-600 hover:text-orange-500 transition">Ana Sayfa</a></li>
-                        <li><a href="#hizmetler" className="text-slate-600 hover:text-orange-500 transition">Hizmetlerimiz</a></li>
-                        <li><a href="#avantajlar" className="text-slate-600 hover:text-orange-500 transition">Neden Biz?</a></li>
+                        <li><a href="#hero" onClick={(e) => scrollToSection(e, 'hero')} className="text-slate-600 hover:text-orange-500 transition cursor-pointer">Ana Sayfa</a></li>
+                        <li><a href="#hizmetler" onClick={(e) => scrollToSection(e, 'hizmetler')} className="text-slate-600 hover:text-orange-500 transition cursor-pointer">Hizmetlerimiz</a></li>
+                        <li><a href="#avantajlar" onClick={(e) => scrollToSection(e, 'avantajlar')} className="text-slate-600 hover:text-orange-500 transition cursor-pointer">Neden Biz?</a></li>
                     </ul>
                 </div>
                 <div>
                     <h4 className="font-bold text-slate-900 mb-4">Hizmetler</h4>
                     <ul className="space-y-3">
-                        <li><a href="#hizmet-web" className="text-slate-600 hover:text-orange-500 transition">Web Tasarım</a></li>
-                        <li><a href="#hizmet-eticaret" className="text-slate-600 hover:text-orange-500 transition">E-Ticaret Paketleri</a></li>
-                        <li><a href="#hizmet-seo" className="text-slate-600 hover:text-orange-500 transition">Google Harita Kaydı</a></li>
-                        <li><a href="#hizmet-sosyal" className="text-slate-600 hover:text-orange-500 transition">Sosyal Medya Yönetimi</a></li>
+                        <li><a href="#hizmet-web" onClick={(e) => scrollToSection(e, 'hizmet-web')} className="text-slate-600 hover:text-orange-500 transition cursor-pointer">Web Tasarım</a></li>
+                        <li><a href="#hizmet-eticaret" onClick={(e) => scrollToSection(e, 'hizmet-eticaret')} className="text-slate-600 hover:text-orange-500 transition cursor-pointer">E-Ticaret Paketleri</a></li>
+                        <li><a href="#hizmet-seo" onClick={(e) => scrollToSection(e, 'hizmet-seo')} className="text-slate-600 hover:text-orange-500 transition cursor-pointer">Google Harita Kaydı</a></li>
+                        <li><a href="#hizmet-sosyal" onClick={(e) => scrollToSection(e, 'hizmet-sosyal')} className="text-slate-600 hover:text-orange-500 transition cursor-pointer">Sosyal Medya Yönetimi</a></li>
                     </ul>
                 </div>
                 <div>
