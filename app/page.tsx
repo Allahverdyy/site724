@@ -51,8 +51,8 @@ const Site724Landing = () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
-  const whatsappLink = "https://wa.me/905550000000";
-  const phoneLink = "tel:05550000000";
+  const whatsappLink = "https://wa.me/905531716331?text=Merhaba,%20Site724%20üzerinden%20ulaşıyorum.%20Web%20tasarım%20hizmetleriniz%20hakkında%20bilgi%20almak%20istiyorum.";
+  const phoneLink = "tel:05531716331";
 
   return (
     <div className="min-h-screen bg-slate-50 font-sans text-slate-900 selection:bg-orange-100 selection:text-orange-600 relative scroll-smooth">
@@ -437,7 +437,7 @@ const Site724Landing = () => {
                 </li>
                 <li className="flex items-center gap-3 text-slate-600">
                   <Phone size={20} className="text-orange-500 shrink-0" />
-                  <span>+90 555 000 00 00</span>
+                  <span>+90 553 171 63 31 </span>
                 </li>
                 <li className="flex items-center gap-3 text-slate-600">
                   <MessageCircle size={20} className="text-orange-500 shrink-0" />
