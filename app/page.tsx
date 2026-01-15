@@ -7,7 +7,7 @@ import {
   ArrowRight, ArrowUp, Share2 
 } from 'lucide-react';
 
-// --- ÖZEL WHATSAPP IKONU (Lucide içinde olmadığı için buraya ekledik) ---
+// --- ÖZEL WHATSAPP IKONU ---
 const WhatsAppIcon = ({ size = 24, className = "" }) => (
   <svg 
     viewBox="0 0 24 24" 
@@ -30,9 +30,7 @@ const Site724Landing = () => {
   // Scroll takibi
   useEffect(() => {
     const handleScroll = () => {
-      // Header arka planı için (20px kaydırınca devreye girer)
       setScrolled(window.scrollY > 20);
-      // Yukarı çık butonu (300px kaydırınca görünür)
       setShowScrollTop(window.scrollY > 300);
     };
     window.addEventListener('scroll', handleScroll);
@@ -49,25 +47,23 @@ const Site724Landing = () => {
   return (
     <div className="min-h-screen bg-slate-50 font-sans text-slate-900 selection:bg-orange-100 selection:text-orange-600 relative scroll-smooth">
 
-      {/* --- FLOATING BUTTONS (SABİT BUTONLAR) --- */}
+      {/* --- FLOATING BUTTONS --- */}
 
-      {/* 1. WhatsApp Widget (Sol Alt) */}
+      {/* 1. WhatsApp Widget */}
       <div className="fixed bottom-6 left-6 z-50 flex flex-col items-start gap-4 font-sans">
         
         {/* Chat Penceresi */}
         {isChatOpen && (
             <div className="bg-white rounded-2xl shadow-2xl w-80 overflow-hidden border border-slate-100 animate-in fade-in slide-in-from-bottom-4 duration-300 origin-bottom-left">
-                {/* Header */}
                 <div className="bg-[#0f172a] p-6 text-white relative">
                     <button 
                         onClick={() => setIsChatOpen(false)} 
-                        className="absolute top-4 right-4 text-slate-400 hover:text-white transition"
+                        className="absolute top-4 right-4 text-slate-400 hover:text-white transition cursor-pointer"
                     >
                         <X size={20} />
                     </button>
                     <div className="flex items-center gap-4">
                         <div className="relative">
-                            {/* PROFİL FOTOĞRAFI */}
                             <img 
                                 src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?w=400&auto=format&fit=crop&q=60" 
                                 alt="Profil" 
@@ -82,7 +78,6 @@ const Site724Landing = () => {
                     </div>
                 </div>
 
-                {/* Chat Body */}
                 <div className="bg-[#e5ddd5] p-6 h-64 flex flex-col gap-4 overflow-y-auto relative">
                     <div className="absolute inset-0 opacity-10 bg-[url('https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png')]"></div>
                     <div className="bg-white p-3 rounded-r-xl rounded-bl-xl shadow-sm text-sm text-slate-800 relative z-10 self-start max-w-[90%]">
@@ -93,15 +88,13 @@ const Site724Landing = () => {
                     </div>
                 </div>
 
-                {/* Footer Button */}
                 <div className="p-4 bg-white border-t border-slate-100">
                     <a 
                         href={whatsappLink}
                         target="_blank" 
                         rel="noopener noreferrer"
-                        className="flex items-center justify-center gap-2 w-full bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold py-3 rounded-full transition shadow-lg hover:shadow-green-500/30"
+                        className="flex items-center justify-center gap-2 w-full bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold py-3 rounded-full transition shadow-lg hover:shadow-green-500/30 cursor-pointer"
                     >
-                        {/* BURADA ARTIK LOGO VAR */}
                         <WhatsAppIcon size={24} className="fill-white" />
                         Sohbete Başla
                     </a>
@@ -109,12 +102,11 @@ const Site724Landing = () => {
             </div>
         )}
 
-        {/* Tetikleyici Buton (Sol Alt) */}
+        {/* Tetikleyici Buton (Cursor-Pointer Eklendi) */}
         <button 
             onClick={() => setIsChatOpen(!isChatOpen)}
-            className="group flex items-center gap-3 bg-[#0f172a] text-white px-5 py-3 rounded-full shadow-2xl hover:scale-105 transition duration-300 relative"
+            className="group flex items-center gap-3 bg-[#0f172a] text-white px-5 py-3 rounded-full shadow-2xl hover:scale-105 transition duration-300 relative cursor-pointer"
         >
-            {/* BURADA DA LOGO VAR */}
             <WhatsAppIcon size={28} className="text-white" />
             <span className="font-bold pr-1">İletişime Geçin</span>
             <span className="absolute -top-1 -right-1 flex h-4 w-4">
@@ -124,16 +116,16 @@ const Site724Landing = () => {
         </button>
       </div>
 
-      {/* 2. Yukarı Çık Butonu (Sağ Alt) */}
+      {/* 2. Yukarı Çık Butonu (Cursor-Pointer Eklendi) */}
       <button 
         onClick={scrollToTop}
-        className={`fixed bottom-6 right-6 z-40 bg-white text-slate-900 border border-slate-200 p-3 rounded-full shadow-lg hover:bg-orange-500 hover:text-white hover:border-orange-500 transition-all duration-500 transform ${showScrollTop ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'}`}
+        className={`fixed bottom-6 right-6 z-40 bg-white text-slate-900 border border-slate-200 p-3 rounded-full shadow-lg hover:bg-orange-500 hover:text-white hover:border-orange-500 transition-all duration-500 transform cursor-pointer ${showScrollTop ? 'translate-y-0 opacity-100' : 'translate-y-20 opacity-0'}`}
         title="Yukarı Çık"
       >
         <ArrowUp size={24} />
       </button>
 
-      {/* --- NAVBAR (DÜZELTİLDİ: BUZLANMA GERİ GELDİ) --- */}
+      {/* --- NAVBAR --- */}
       <nav 
         className={`fixed w-full z-40 transition-all duration-300 ${
             scrolled 
@@ -143,7 +135,7 @@ const Site724Landing = () => {
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between h-16 items-center">
-            {/* Logo */}
+            {/* Logo (Cursor-Pointer) */}
             <div className="flex items-center gap-2 cursor-pointer" onClick={scrollToTop}>
               <div className="w-8 h-8 bg-orange-500 rounded-lg flex items-center justify-center text-white font-bold">S</div>
               <span className="text-2xl font-bold text-slate-900 tracking-tight">Site<span className="text-orange-500">724</span></span>
@@ -154,7 +146,8 @@ const Site724Landing = () => {
               <a href="#hero" className="text-slate-600 hover:text-orange-500 transition cursor-pointer">Ana Sayfa</a>
               <a href="#hizmetler" className="text-slate-600 hover:text-orange-500 transition cursor-pointer">Hizmetler</a>
               <a href="#avantajlar" className="text-slate-600 hover:text-orange-500 transition cursor-pointer">Neden Biz?</a>
-              <button onClick={() => setIsChatOpen(true)} className="bg-slate-900 hover:bg-orange-600 text-white px-6 py-2.5 rounded-full font-medium transition shadow-lg hover:shadow-orange-500/20 flex items-center gap-2">
+              {/* Teklif Al Butonu (Cursor-Pointer) */}
+              <button onClick={() => setIsChatOpen(true)} className="bg-slate-900 hover:bg-orange-600 text-white px-6 py-2.5 rounded-full font-medium transition shadow-lg hover:shadow-orange-500/20 flex items-center gap-2 cursor-pointer">
                 <MessageCircle size={18} />
                 Teklif Al
               </button>
@@ -162,7 +155,7 @@ const Site724Landing = () => {
 
             {/* Mobile Menu Button */}
             <div className="md:hidden">
-              <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="text-slate-600 p-2">
+              <button onClick={() => setIsMenuOpen(!isMenuOpen)} className="text-slate-600 p-2 cursor-pointer">
                 {isMenuOpen ? <X size={28} /> : <Menu size={28} />}
               </button>
             </div>
@@ -175,7 +168,7 @@ const Site724Landing = () => {
             <a href="#hero" className="block text-slate-600 p-2 hover:bg-slate-50 rounded" onClick={() => setIsMenuOpen(false)}>Ana Sayfa</a>
             <a href="#hizmetler" className="block text-slate-600 p-2 hover:bg-slate-50 rounded" onClick={() => setIsMenuOpen(false)}>Hizmetler</a>
             <a href="#avantajlar" className="block text-slate-600 p-2 hover:bg-slate-50 rounded" onClick={() => setIsMenuOpen(false)}>Neden Biz?</a>
-            <button onClick={() => { setIsChatOpen(true); setIsMenuOpen(false); }} className="block w-full text-center bg-orange-500 text-white py-3 rounded-lg font-bold">
+            <button onClick={() => { setIsChatOpen(true); setIsMenuOpen(false); }} className="block w-full text-center bg-orange-500 text-white py-3 rounded-lg font-bold cursor-pointer">
               WhatsApp'tan Yaz
             </button>
           </div>
@@ -184,13 +177,10 @@ const Site724Landing = () => {
 
       {/* --- HERO SECTION --- */}
       <section id="hero" className="relative pt-32 pb-20 lg:pt-40 lg:pb-28 overflow-hidden">
-        {/* Background Blobs */}
         <div className="absolute top-0 right-0 -z-10 w-[600px] h-[600px] bg-orange-100/50 rounded-full blur-3xl opacity-50 translate-x-1/3 -translate-y-1/4"></div>
         <div className="absolute bottom-0 left-0 -z-10 w-[400px] h-[400px] bg-blue-100/50 rounded-full blur-3xl opacity-50 -translate-x-1/3 translate-y-1/4"></div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col-reverse lg:flex-row items-center">
-          
-          {/* Text Content */}
           <div className="w-full lg:w-1/2 mt-12 lg:mt-0 lg:pr-12 text-center lg:text-left">
             <div className="inline-flex items-center gap-2 bg-white border border-slate-200 text-slate-700 px-4 py-1.5 rounded-full text-sm font-semibold mb-8 shadow-sm">
               <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
@@ -204,17 +194,15 @@ const Site724Landing = () => {
               İşletmenizi dijital dünyaya taşıyoruz. Müşterileriniz sizi Google'da bulsun, Kars'a gelmeden rezervasyon yapsın, satışlarınız 7/24 devam etsin.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-              <button onClick={() => setIsChatOpen(true)} className="flex items-center justify-center gap-2 bg-slate-900 hover:bg-slate-800 text-white px-8 py-4 rounded-full text-lg font-bold transition shadow-xl shadow-slate-900/20 hover:-translate-y-1">
+              <button onClick={() => setIsChatOpen(true)} className="flex items-center justify-center gap-2 bg-slate-900 hover:bg-slate-800 text-white px-8 py-4 rounded-full text-lg font-bold transition shadow-xl shadow-slate-900/20 hover:-translate-y-1 cursor-pointer">
                 Hemen Başlayalım
                 <ArrowRight size={20} />
               </button>
-              <a href="#hizmetler" className="flex items-center justify-center gap-2 bg-white border border-slate-200 hover:border-orange-500 hover:text-orange-500 text-slate-600 px-8 py-4 rounded-full text-lg font-medium transition shadow-sm hover:shadow-md">
+              <a href="#hizmetler" className="flex items-center justify-center gap-2 bg-white border border-slate-200 hover:border-orange-500 hover:text-orange-500 text-slate-600 px-8 py-4 rounded-full text-lg font-medium transition shadow-sm hover:shadow-md cursor-pointer">
                 Hizmetleri Gör
               </a>
             </div>
           </div>
-
-          {/* Image Content */}
           <div className="w-full lg:w-1/2">
             <div className="relative rounded-2xl overflow-hidden shadow-2xl bg-white border border-slate-100 aspect-[4/3] group">
                <img 
@@ -265,11 +253,11 @@ const Site724Landing = () => {
         </div>
       </section>
 
-      {/* --- HİZMETLER --- */}
+      {/* --- HİZMETLER (GÜNCELLENDİ) --- */}
       <section id="hizmetler" className="bg-white py-24 scroll-mt-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-24">
           
-          {/* Hizmet 1 */}
+          {/* Hizmet 1: Web Tasarım */}
           <div id="hizmet-web" className="flex flex-col lg:flex-row items-center gap-16 scroll-mt-24">
             <div className="w-full lg:w-1/2">
                <div className="rounded-2xl shadow-2xl overflow-hidden border border-slate-100 bg-slate-50 p-2">
@@ -277,26 +265,26 @@ const Site724Landing = () => {
                </div>
             </div>
             <div className="w-full lg:w-1/2">
-              <span className="inline-block px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-bold tracking-wide uppercase mb-4">Hizmet 01</span>
-              <h3 className="text-3xl font-bold mb-6 text-slate-900">Web Tasarım</h3>
+              <span className="inline-block px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-bold tracking-wide uppercase mb-4">Web Tasarım</span>
+              <h3 className="text-3xl font-bold mb-6 text-slate-900">Kurumsal Kimliğinizi Yansıtın</h3>
               <p className="text-lg text-slate-600 mb-8 leading-relaxed">
                 Kurumsal kimliğinizi yansıtan, güven veren ve tüm telefonlarda kusursuz çalışan modern web siteleri.
               </p>
-              <button onClick={() => setIsChatOpen(true)} className="text-orange-600 font-bold hover:text-orange-700 flex items-center gap-2 group">
+              <button onClick={() => setIsChatOpen(true)} className="text-orange-600 font-bold hover:text-orange-700 flex items-center gap-2 group cursor-pointer">
                 Fiyat Teklifi Alın <ChevronRight size={20} className="group-hover:translate-x-1 transition" />
               </button>
             </div>
           </div>
 
-          {/* Hizmet 2 */}
+          {/* Hizmet 2: E-Ticaret */}
           <div id="hizmet-eticaret" className="flex flex-col-reverse lg:flex-row items-center gap-16 scroll-mt-24">
             <div className="w-full lg:w-1/2">
-              <span className="inline-block px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-xs font-bold tracking-wide uppercase mb-4">Hizmet 02</span>
-              <h3 className="text-3xl font-bold mb-6 text-slate-900">E-Ticaret Paketleri</h3>
+              <span className="inline-block px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-xs font-bold tracking-wide uppercase mb-4">E-Ticaret</span>
+              <h3 className="text-3xl font-bold mb-6 text-slate-900">Ürünlerinizi Tüm Türkiye'ye Satın</h3>
               <p className="text-lg text-slate-600 mb-8 leading-relaxed">
                 Kars kaşarı, balı veya el sanatları... Ürünlerinizi sadece dükkana gelene değil, İstanbul'a, İzmir'e kargolayın.
               </p>
-              <button onClick={() => setIsChatOpen(true)} className="text-orange-600 font-bold hover:text-orange-700 flex items-center gap-2 group">
+              <button onClick={() => setIsChatOpen(true)} className="text-orange-600 font-bold hover:text-orange-700 flex items-center gap-2 group cursor-pointer">
                 Paketleri İnceleyin <ChevronRight size={20} className="group-hover:translate-x-1 transition" />
               </button>
             </div>
@@ -307,7 +295,7 @@ const Site724Landing = () => {
             </div>
           </div>
 
-           {/* Hizmet 3 */}
+           {/* Hizmet 3: Google & SEO */}
            <div id="hizmet-seo" className="flex flex-col lg:flex-row items-center gap-16 scroll-mt-24">
             <div className="w-full lg:w-1/2">
                <div className="rounded-2xl shadow-2xl overflow-hidden border border-slate-100 bg-slate-50 p-2">
@@ -315,31 +303,31 @@ const Site724Landing = () => {
                </div>
             </div>
             <div className="w-full lg:w-1/2">
-              <span className="inline-block px-3 py-1 bg-orange-100 text-orange-700 rounded-full text-xs font-bold tracking-wide uppercase mb-4">Hizmet 03</span>
-              <h3 className="text-3xl font-bold mb-6 text-slate-900">Google Haritalar & SEO</h3>
+              <span className="inline-block px-3 py-1 bg-orange-100 text-orange-700 rounded-full text-xs font-bold tracking-wide uppercase mb-4">Google & SEO</span>
+              <h3 className="text-3xl font-bold mb-6 text-slate-900">Arandığında Bulunan Siz Olun</h3>
               <p className="text-lg text-slate-600 mb-8 leading-relaxed">
                 Navigasyonda ve Google aramalarında en üstte çıkın. Müşteri "Kars otelleri" yazdığında sizi görsün.
               </p>
-              <button onClick={() => setIsChatOpen(true)} className="text-orange-600 font-bold hover:text-orange-700 flex items-center gap-2 group">
+              <button onClick={() => setIsChatOpen(true)} className="text-orange-600 font-bold hover:text-orange-700 flex items-center gap-2 group cursor-pointer">
                 Analiz İsteyin <ChevronRight size={20} className="group-hover:translate-x-1 transition" />
               </button>
             </div>
           </div>
 
-          {/* Hizmet 4 */}
+          {/* Hizmet 4: Sosyal Medya */}
           <div id="hizmet-sosyal" className="flex flex-col-reverse lg:flex-row items-center gap-16 scroll-mt-24">
             <div className="w-full lg:w-1/2">
-              <span className="inline-block px-3 py-1 bg-pink-100 text-pink-700 rounded-full text-xs font-bold tracking-wide uppercase mb-4">Hizmet 04</span>
-              <h3 className="text-3xl font-bold mb-6 text-slate-900">Sosyal Medya Yönetimi</h3>
+              <span className="inline-block px-3 py-1 bg-pink-100 text-pink-700 rounded-full text-xs font-bold tracking-wide uppercase mb-4">Sosyal Medya Yönetimi</span>
+              <h3 className="text-3xl font-bold mb-6 text-slate-900">Takipçi Değil, Müşteri Kazanın</h3>
               <p className="text-lg text-slate-600 mb-8 leading-relaxed">
-                Instagram ve Facebook hesabınızı profesyonel ellere bırakın. Düzenli paylaşımlar, Reels videoları ve reklam yönetimiyle takipçi değil, müşteri kazanın.
+                Instagram ve Facebook hesabınızı profesyonel ellere bırakın. Düzenli paylaşımlar, Reels videoları ve reklam yönetimiyle marka sesinizi duyurun.
               </p>
               <ul className="space-y-3 mb-8">
                   <li className="flex items-center gap-3 text-slate-700"><CheckCircle size={18} className="text-green-500" /> İçerik Üretimi & Tasarım</li>
                   <li className="flex items-center gap-3 text-slate-700"><CheckCircle size={18} className="text-green-500" /> Reels & Video Çekimi</li>
                   <li className="flex items-center gap-3 text-slate-700"><CheckCircle size={18} className="text-green-500" /> Sponsorlu Reklam Yönetimi</li>
               </ul>
-              <button onClick={() => setIsChatOpen(true)} className="text-orange-600 font-bold hover:text-orange-700 flex items-center gap-2 group">
+              <button onClick={() => setIsChatOpen(true)} className="text-orange-600 font-bold hover:text-orange-700 flex items-center gap-2 group cursor-pointer">
                 Sosyal Medya Paketi Alın <ChevronRight size={20} className="group-hover:translate-x-1 transition" />
               </button>
             </div>
@@ -392,11 +380,11 @@ const Site724Landing = () => {
                 <h2 className="text-3xl md:text-5xl font-bold mb-6 relative z-10">İşletmenizi Büyütmeye Hazır Mısınız?</h2>
                 <p className="text-orange-50 text-lg mb-10 max-w-2xl mx-auto relative z-10">Kaybedecek vaktiniz yok. Rakipleriniz dijitale geçti bile.</p>
                 <div className="flex flex-col sm:flex-row justify-center gap-6 relative z-10">
-                    <button onClick={() => setIsChatOpen(true)} className="bg-white text-orange-600 hover:bg-slate-100 px-8 py-4 rounded-full text-xl font-bold flex items-center justify-center gap-3 transition shadow-xl">
+                    <button onClick={() => setIsChatOpen(true)} className="bg-white text-orange-600 hover:bg-slate-100 px-8 py-4 rounded-full text-xl font-bold flex items-center justify-center gap-3 transition shadow-xl cursor-pointer">
                     <WhatsAppIcon size={24} />
                     WhatsApp'tan Yazın
                     </button>
-                    <a href={phoneLink} className="bg-orange-700/50 border border-white/30 hover:bg-orange-700 text-white px-8 py-4 rounded-full text-xl font-bold flex items-center justify-center gap-3 transition">
+                    <a href={phoneLink} className="bg-orange-700/50 border border-white/30 hover:bg-orange-700 text-white px-8 py-4 rounded-full text-xl font-bold flex items-center justify-center gap-3 transition cursor-pointer">
                     <Phone size={24} />
                     Hemen Arayın
                     </a>
@@ -409,7 +397,6 @@ const Site724Landing = () => {
       <footer className="bg-slate-50 border-t border-slate-200 pt-16 pb-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid md:grid-cols-4 gap-12 mb-12">
-                {/* Kolon 1 */}
                 <div>
                     <div className="flex items-center gap-2 mb-4 cursor-pointer" onClick={scrollToTop}>
                         <div className="w-8 h-8 bg-orange-500 rounded-lg flex items-center justify-center text-white font-bold">S</div>
@@ -422,8 +409,6 @@ const Site724Landing = () => {
                         <a href="#" className="w-10 h-10 bg-white border border-slate-200 rounded-full flex items-center justify-center text-slate-600 hover:bg-blue-800 hover:text-white transition"><Facebook size={20} /></a>
                     </div>
                 </div>
-                
-                {/* Kolon 2 */}
                 <div>
                     <h4 className="font-bold text-slate-900 mb-4">Hızlı Erişim</h4>
                     <ul className="space-y-3">
@@ -432,8 +417,6 @@ const Site724Landing = () => {
                         <li><a href="#avantajlar" className="text-slate-600 hover:text-orange-500 transition">Neden Biz?</a></li>
                     </ul>
                 </div>
-
-                {/* Kolon 3 */}
                 <div>
                     <h4 className="font-bold text-slate-900 mb-4">Hizmetler</h4>
                     <ul className="space-y-3">
@@ -443,8 +426,6 @@ const Site724Landing = () => {
                         <li><a href="#hizmet-sosyal" className="text-slate-600 hover:text-orange-500 transition">Sosyal Medya Yönetimi</a></li>
                     </ul>
                 </div>
-
-                {/* Kolon 4 */}
                 <div>
                     <h4 className="font-bold text-slate-900 mb-4">İletişim</h4>
                     <ul className="space-y-4">
@@ -463,7 +444,6 @@ const Site724Landing = () => {
                     </ul>
                 </div>
             </div>
-            
             <div className="border-t border-slate-200 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-slate-500">
                 <p>&copy; 2026 Site724. Tüm Hakları Saklıdır.</p>
                 <div className="flex gap-6">
