@@ -105,12 +105,14 @@ const Site724Landing = () => {
             </div>
           </div>
         )}
+        {/* Tetikleyici Buton (ARTIK YEŞİL) */}
         <button
           onClick={() => setIsChatOpen(!isChatOpen)}
-          className="group flex items-center gap-3 bg-[#0f172a] text-white px-5 py-3 rounded-full shadow-2xl hover:scale-105 transition duration-300 relative cursor-pointer"
+          className="group flex items-center gap-3 bg-[#25D366] hover:bg-[#20bd5a] text-white px-5 py-3 rounded-full shadow-2xl hover:scale-105 transition duration-300 relative cursor-pointer"
         >
           <WhatsAppIcon size={28} className="text-white" />
           <span className="font-bold pr-1">İletişime Geçin</span>
+          {/* Bildirim noktası aynı kalıyor... */}
           <span className="absolute -top-1 -right-1 flex h-4 w-4">
             <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
             <span className="relative inline-flex rounded-full h-4 w-4 bg-red-500 border-2 border-white"></span>
@@ -129,8 +131,8 @@ const Site724Landing = () => {
       {/* --- NAVBAR --- */}
       <nav
         className={`fixed w-full z-40 transition-all duration-300 ${scrolled
-            ? 'bg-white/80 backdrop-blur-md shadow-sm border-b border-white/20 py-2'
-            : 'bg-transparent py-4'
+          ? 'bg-white/80 backdrop-blur-md shadow-sm border-b border-white/20 py-2'
+          : 'bg-transparent py-4'
           }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
