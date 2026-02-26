@@ -1,10 +1,15 @@
 import type { NextConfig } from "next";
 
+// Buraya kendi domainini yazıyoruz ki dosyaları hep buradan çeksin
+const isProd = process.env.NODE_ENV === 'production';
+
 const nextConfig: NextConfig = {
-  // Statik HTML çıktısı almak için bu ayar şart:
   output: 'export',
+  trailingSlash: true, // Klasörlü yapı (404 hatasını çözen kahraman)
   
-  // Klasik hostinglerde (Plesk vb.) resim optimizasyonu çalışmaz, kapatıyoruz:
+  // SİHİRLİ DOKUNUŞ: Canlıdaysak dosyaları direkt domainden çek, localdeysen normal takıl.
+  assetPrefix: isProd ? 'https://site724.com.tr' : undefined,
+
   images: {
     unoptimized: true,
   },

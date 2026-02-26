@@ -26,6 +26,7 @@ const Site724Landing = () => {
   const [scrolled, setScrolled] = useState(false);
   const [showScrollTop, setShowScrollTop] = useState(false);
   const [isChatOpen, setIsChatOpen] = useState(false);
+  const [showWelcomeMessage, setShowWelcomeMessage] = useState(false);
 
   // Scroll takibi
   useEffect(() => {
@@ -35,6 +36,12 @@ const Site724Landing = () => {
     };
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // İlk açıldığında karşılama mesajı yüklenme animasyonu
+  useEffect(() => {
+    const timer = setTimeout(() => setShowWelcomeMessage(true), 1800);
+    return () => clearTimeout(timer);
   }, []);
 
   // Adres çubuğunu kirletmeden (#id eklemeden) yumuşak kaydırma fonksiyonu
@@ -71,7 +78,7 @@ const Site724Landing = () => {
               <div className="flex items-center gap-4">
                 <div className="relative">
                   <img
-                    src="https://images.unsplash.com/photo-1633332755192-727a05c4013d?w=400&auto=format&fit=crop&q=60"
+                    src="https://i.imgur.com/39Bv0aj.png"
                     alt="Profil"
                     className="w-14 h-14 rounded-full border-2 border-white object-cover"
                   />
@@ -85,12 +92,20 @@ const Site724Landing = () => {
             </div>
             <div className="bg-[#e5ddd5] p-6 h-64 flex flex-col gap-4 overflow-y-auto relative">
               <div className="absolute inset-0 opacity-10 bg-[url('https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png')]"></div>
-              <div className="bg-white p-3 rounded-r-xl rounded-bl-xl shadow-sm text-sm text-slate-800 relative z-10 self-start max-w-[90%]">
-                <p className="font-bold text-xs text-orange-600 mb-1">Abdulsamed Tanrıverdi</p>
-                <p>Merhaba 👋</p>
-                <p className="mt-2">Yardım etmek için buradayım, soru ve görüşleriniz için yazabilirsiniz. 😊</p>
-                <span className="text-[10px] text-slate-400 float-right mt-1 ml-2">Şimdi</span>
-              </div>
+              {!showWelcomeMessage ? (
+                <div className="flex items-center justify-center p-3 rounded-r-xl rounded-bl-xl shadow-sm text-sm text-slate-800 relative z-10 self-start max-w-[90%]">
+                  <div className="loader-bubble"></div>
+                </div>
+              ) : (
+                <>
+                  <div className="bg-white p-3 rounded-r-xl rounded-bl-xl shadow-sm text-sm text-slate-800 relative z-10 self-start max-w-[90%]">
+                    <p className="font-bold text-xs text-orange-600 mb-1">Abdulsamed Tanrıverdi</p>
+                    <p>Merhaba 👋</p>
+                    <p className="mt-2">Yardım etmek için buradayım, soru ve görüşleriniz için yazabilirsiniz. 😊</p>
+                    <span className="text-[10px] text-slate-400 float-right mt-1 ml-2">Şimdi</span>
+                  </div>
+                </>
+              )}
             </div>
             <div className="p-4 bg-white border-t border-slate-100">
               <a
@@ -406,9 +421,9 @@ const Site724Landing = () => {
               </a>
               <p className="text-slate-500 mb-6">Kars'ın yerel işletmeleri için dijital büyüme ortağı. Web tasarım, SEO ve sosyal medya çözümleri.</p>
               <div className="flex gap-4">
-                <a href="#" className="w-10 h-10 bg-white border border-slate-200 rounded-full flex items-center justify-center text-slate-600 hover:bg-orange-500 hover:text-white transition"><Instagram size={20} /></a>
-                <a href="#" className="w-10 h-10 bg-white border border-slate-200 rounded-full flex items-center justify-center text-slate-600 hover:bg-blue-600 hover:text-white transition"><Linkedin size={20} /></a>
-                <a href="#" className="w-10 h-10 bg-white border border-slate-200 rounded-full flex items-center justify-center text-slate-600 hover:bg-blue-800 hover:text-white transition"><Facebook size={20} /></a>
+                <a href="https://www.instagram.com/abdulsamet.allahverdi/" target='_blank' className="w-10 h-10 bg-white border border-slate-200 rounded-full flex items-center justify-center text-slate-600 hover:bg-orange-500 hover:text-white transition"><Instagram size={20} /></a>
+                <a href="https://www.linkedin.com/in/abdulsametanriverdi/" target='_blank' className="w-10 h-10 bg-white border border-slate-200 rounded-full flex items-center justify-center text-slate-600 hover:bg-blue-600 hover:text-white transition"><Linkedin size={20} /></a>
+                <a href="https://www.facebook.com/abdulsamet.allahverdi/" target='_blank' className="w-10 h-10 bg-white border border-slate-200 rounded-full flex items-center justify-center text-slate-600 hover:bg-blue-800 hover:text-white transition"><Facebook size={20} /></a>
               </div>
             </div>
             <div>

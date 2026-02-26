@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://site724.com.tr/sitemap.xml
