@@ -41,6 +41,30 @@ export const metadata: Metadata = {
     description: "Modern, hızlı ve SEO uyumlu web siteleri.",
     images: ["/og-image.jpg"],
   },
+  alternates: {
+    canonical: "https://site724.com.tr",
+  },
+};
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  name: "Site724",
+  url: "https://site724.com.tr",
+  telephone: "+905531716331",
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: "Kağızman",
+    addressRegion: "Kars",
+    postalCode: "36000",
+    addressCountry: "TR",
+  },
+  areaServed: ["Kars", "Kağızman"],
+  sameAs: [
+    "https://www.instagram.com/site724kars/",
+    "https://www.facebook.com/site724kars/",
+  ],
+  logo: "https://site724.com.tr/logo.svg", // yükleyince aç
 };
 
 export default function RootLayout({
@@ -50,9 +74,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="tr">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </head>
+      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         {children}
       </body>
     </html>
