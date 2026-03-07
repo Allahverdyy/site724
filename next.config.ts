@@ -1,18 +1,18 @@
 import type { NextConfig } from "next";
 
-// Buraya kendi domainini yazıyoruz ki dosyaları hep buradan çeksin
-const isProd = process.env.NODE_ENV === 'production';
+const isProd = process.env.NODE_ENV === "production";
+const isGithubPages = process.env.GITHUB_ACTIONS === "true";
 
 const nextConfig: NextConfig = {
-  output: 'export',
-  trailingSlash: true, // Klasörlü yapı (404 hatasını çözen kahraman)
-  
-  // SİHİRLİ DOKUNUŞ: Canlıdaysak dosyaları direkt domainden çek, localdeysen normal takıl.
-  assetPrefix: isProd ? 'https://site724.com.tr' : undefined,
-
+  output: "export",
+  trailingSlash: true,
   images: {
     unoptimized: true,
   },
+
+  // GitHub Pages için repo adı kadar base path veriyoruz
+  basePath: isProd && isGithubPages ? "/site724" : "",
+  assetPrefix: isProd && isGithubPages ? "/site724/" : "",
 };
 
 export default nextConfig;
